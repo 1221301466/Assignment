@@ -1,3 +1,13 @@
+// ********************************************************* 
+// Course: TCP1101 PROGRAMMING FUNDAMENTALS 
+// Year: Trimester 1, 2022/23 (T2215) 
+// Lab: TT9L 
+// Names: JOSEPH_MASASI | IBRAHIM_ABDULKAREEM | MOHAM_SALEH 
+// IDs: 1221301466 | 1211300223 | 1221301877 
+// Emails: 1221301466@STUDENT.MMU.EDU.MY| 1211300223@STUDENT.MMU.EDU.MY | 1221301877@STUDENT.MMU.EDU.MY 
+// Phones: +601137704976 | +601131830435 | +966567626353 
+// *********************************************************
+
 #include <iostream>
 #include <stdlib.h>
 #include <string>
@@ -16,14 +26,14 @@ Mars::Mars(int dimX, int dimY)
 {
     init(dimX, dimY);
     
-}
+} 
 
 void Mars::init(int dimX, int dimY)
 {
     dimX_ = dimX;
     dimY_ = dimY;
-    char objects[] = {'>', '<', '^', 'v', ' ', ' ', 'O', 'H', 'A', '#'};
-    int noOfObjects = 10; // number of objects in the objects array
+    char objects[] = {'>', '<', '^', 'v', ' ', ' ', 'O', 'H', 'A', '#', ' ', ' '};
+    int noOfObjects = 12; // number of objects in the objects array
     // create dynamic 2D array using vector
     map_.resize(dimY_); // create empty rows
     for (int i = 0; i < dimY_; ++i)
@@ -110,6 +120,10 @@ void Mars::display(int X, int Y)
 
 int main()
 {
+    cout << "Assignment (Part 1)" << endl;
+    cout << "Let's Get Started!" << endl;
+    pf::Pause();
+
     int rows = 5, columns = 9, Zcount = 1;
     char input;
     int X, Y;
