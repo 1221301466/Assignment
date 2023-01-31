@@ -32,18 +32,15 @@ List down the contribution of each group members.
 
 ### Joseph Masasi
 
-1. Randomly generate game board.
-2. *add more*
+1. Configures the game board and the inbound characters.
 
 ### Ibrahim Abdulkareem
 
-1. Zombie movement and attack behaviour.
-2. *add more*
+1. Configures interaction for the change in game settings respective to the user.
 
 ### Moham Saleh
 
-1. Implement all game objects.
-2. *add more*
+1. Creates the scrolling billboard before the game actually starts and configures th compilation.
 
 ## Problems Encountered & Solutions
 
