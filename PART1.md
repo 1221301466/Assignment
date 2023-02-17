@@ -40,7 +40,7 @@ List down the contribution of each group members.
 
 ### Moham Saleh
 
-1. Creates the scrolling billboard before the game actually starts and configures th compilation.
+1. Creates the scrolling billboard before the game actually starts and configures the compilation of the functions.
 
 ## Problems Encountered & Solutions
 
