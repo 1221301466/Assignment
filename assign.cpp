@@ -16,6 +16,7 @@
 #include <ctime>   // for time() in srand( time(NULL) );
 #include <iomanip> // for setw()
 #include "class.hpp"
+#include "helper.h"
 
 void display(int X, int Y);
 char defaultsettings(int rows, int columns, int Zcount);
@@ -40,14 +41,26 @@ void Mars::init(int dimX, int dimY)
     {
         map_[i].resize(dimX_); // resize each row
     }
+    srand(time(NULL));
     // put random characters into the vector array
+    int middleY = dimY_ / 2;
+    int middleX = dimX_ / 2;
     for (int i = 0; i < dimY_; ++i)
     {
         for (int j = 0; j < dimX_; ++j)
         {
-            int objNo = rand() % noOfObjects;
-            map_[i][j] = objects[objNo];
+             if (i == middleY && j == middleX) 
+             {
+                map_[i][j] = ' ';
+             }
+            else
+            {
+                int objNo = rand() % noOfObjects;
+                map_[i][j] = objects[objNo];
+            }
+            
         }
+
     }
 }
 
@@ -57,7 +70,6 @@ void Mars::init(int dimX, int dimY)
 void fix()
 {
     srand(time(NULL)); // use this for fixed map during testing
-    // srand(time(NULL)); // try this for random map
      
 }
 
@@ -120,9 +132,7 @@ void Mars::display(int X, int Y)
 
 int main()
 {
-    cout << "Assignment (Part 1)" << endl;
-    cout << "Let's Get Started!" << endl;
-    pf::Pause();
+    
 
     int rows = 5, columns = 9, Zcount = 1;
     char input;

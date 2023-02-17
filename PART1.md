@@ -34,7 +34,7 @@ List down the contribution of each group members.
 
 1. Configures the game board and the inbound characters.
 
-### Ibrahim Abdulkareem
+### Ibrahim Abdulkarem
 
 1. Configures interaction for the change in game settings respective to the user.
 
@@ -45,4 +45,5 @@ List down the contribution of each group members.
 ## Problems Encountered & Solutions
 
 problem : dividing the main code into smaller sections so that we can have a more short and clean main function.
+
 solution : did some revision on the compilation part and was able to divide some of the functions and in the end able to compile them into a single executable.
