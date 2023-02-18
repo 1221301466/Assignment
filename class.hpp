@@ -10,7 +10,7 @@ private:
     int dimX_, dimY_;          // to indicate private data
 
 public:
-    Mars(int dimX = 9, int dimY = 5);
+    Mars(int dimX = 9, int dimY = 5, int Zcount = 1);
     void init(int dimX, int dimY);
     void display();
     

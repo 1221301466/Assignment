@@ -24,19 +24,22 @@ char defaultsettings(int rows, int columns, int Zcount);
 void changesettings(int &rows, int &columns, int &Zcount);
 void intro();
 
-
-Mars::Mars(int dimX, int dimY)
+Mars::Mars(int dimX, int dimY, int Zcount)
 {
     init(dimX, dimY);
-    
-} 
+    for(int i = 0; i < Zcount; i++){
+        Zombie zombie;
+        zombie.land(*this);
+    }
+}
+
 
 void Mars::init(int dimX, int dimY)
 {
     dimX_ = dimX;
     dimY_ = dimY;
-    char objects[] = {'>', '<', '^', 'v', ' ', ' ', 'O', 'H', 'A', '#', ' ', ' '};
-    int noOfObjects = 12; // number of objects in the objects array
+    char objects[] = {'>', '<', '^', 'v', ' ', ' ', 'O', 'H', 'A', '#', ' ', ' ', ' ', ' ', ' '};
+    int noOfObjects = 15; // number of objects in the objects array
     // create dynamic 2D array using vector
     map_.resize(dimY_); // create empty rows
     for (int i = 0; i < dimY_; ++i)
@@ -47,8 +50,10 @@ void Mars::init(int dimX, int dimY)
     // put random characters into the vector array
     int middleY = dimY_ / 2;
     int middleX = dimX_ / 2;
+
     for (int i = 0; i < dimY_; ++i)
     {
+        
         for (int j = 0; j < dimX_; ++j)
         {
              if (i == middleY && j == middleX) 
@@ -157,12 +162,13 @@ void Zombie::land(Mars &mars)
     int midY = mars.getDimY() / 2;
 
     do {
-        x_ = rand() % mars.getDimX() + 1;
-        y_ = rand() % mars.getDimY() + 1;
-    } while (x_ == midX && y_ == midY && mars.getObject(x_, y_) != ' ');
+        x_ = rand() % mars.getDimX();
+        y_ = rand() % mars.getDimY();
+    } while (!mars.isInsideMap(x_, y_) || mars.getObject(x_, y_) != ' ');
 
-    mars.setObject(x_, y_, '1');
+    mars.setObject(x_, y_, 'Z');  // set the zombie on the map
 }
+
 
 int Zombie::getX() const
 {
@@ -235,7 +241,6 @@ void moveZombie()
 }
 
 
-
 int main()
 { 
    int rows = 5, columns = 9, Zcount = 1;
@@ -251,15 +256,14 @@ int main()
         case 'N':
         changesettings(rows, columns, Zcount);
         // intro();
+        obj.init(columns, rows);
         obj.display();
-        void land(Mars &mars);
         moveZombie();
         system("pause");
         break;
 
         case 'Y':
         // intro();
-        void land(Mars &mars);
         obj.display();
         moveZombie();
         system("pause");
