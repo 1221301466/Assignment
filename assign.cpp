@@ -17,11 +17,13 @@
 #include <iomanip> // for setw()
 #include "class.hpp"
 #include "helper.h"
+#include "zombie.hpp"
 
-void display(int X, int Y);
+void display();
 char defaultsettings(int rows, int columns, int Zcount);
 void changesettings(int &rows, int &columns, int &Zcount);
 void intro();
+
 
 Mars::Mars(int dimX, int dimY)
 {
@@ -65,7 +67,14 @@ void Mars::init(int dimX, int dimY)
 }
 
 
-
+void Mars::setObject(int x, int y, char ch)
+{
+    map_[dimY_ - y][x - 1] = ch;
+}
+bool Mars::isInsideMap(int dimX, int dimY)
+{
+    return (dimX >= 0 && dimX < dimX_) && (dimY >= 0 && dimY < dimY_);
+}
 
 void fix()
 {
@@ -73,12 +82,10 @@ void fix()
      
 }
 
-void Mars::display(int X, int Y) 
+void Mars::display() 
 {
-    intro();
+    
     system("cls");
-    dimX_ = X;
-    dimY_ = Y;
     // comment this out during testing
     // system("cls"); // OR system("clear"); for Linux / MacOS
     
@@ -128,34 +135,133 @@ void Mars::display(int X, int Y)
          << endl;
 }
 
+int Mars::getDimX() const {
+  return dimX_;
+}
+int Mars::getDimY() const {
+  return dimY_;
+}
+char Mars::getObject(int x, int y) const
+{
+    return map_[dimY_ - y][x - 1];
+}
+
+Zombie::Zombie()
+{
+}
+
+void Zombie::land(Mars &mars)
+{
+    srand(time(NULL));
+    int midX = mars.getDimX() / 2;
+    int midY = mars.getDimY() / 2;
+
+    do {
+        x_ = rand() % mars.getDimX() + 1;
+        y_ = rand() % mars.getDimY() + 1;
+    } while (x_ == midX && y_ == midY && mars.getObject(x_, y_) != ' ');
+
+    mars.setObject(x_, y_, '1');
+}
+
+int Zombie::getX() const
+{
+    return x_;
+}
+
+int Zombie::getY() const
+{
+    return y_;
+}
+
+void Zombie::turnLeft(Mars &mars)
+{
+    mars.setObject(x_, y_, ' '); // clear existing position
+
+    // Find free spaces
+    std::vector<std::pair<int, int>> freeSpaces;
+    if (mars.isInsideMap(x_+1, y_) && mars.getObject(x_+1, y_) == ' ') {
+        freeSpaces.push_back(std::make_pair(x_+1, y_));
+    }
+    if (mars.isInsideMap(x_, y_+1) && mars.getObject(x_, y_+1) == ' ') {
+        freeSpaces.push_back(std::make_pair(x_, y_+1));
+    }
+    if (mars.isInsideMap(x_-1, y_) && mars.getObject(x_-1, y_) == ' ') {
+        freeSpaces.push_back(std::make_pair(x_-1, y_));
+    }
+    if (mars.isInsideMap(x_, y_-1) && mars.getObject(x_, y_-1) == ' ') {
+        freeSpaces.push_back(std::make_pair(x_, y_-1));
+    }
+
+    if (!freeSpaces.empty()) {
+        // Choose a random free space to move into
+        int index = rand() % freeSpaces.size();
+        x_ = freeSpaces[index].first;
+        y_ = freeSpaces[index].second;
+    }
+
+    mars.setObject(x_, y_, '1'); // set new position
+}
+
+void Zombie::turnRight(Mars &mars)
+{
+    mars.setObject(x_, y_, ' '); // clear current position
+
+    // Find all free neighboring spaces
+    std::vector<std::pair<int, int>> freeSpaces;
+    if (mars.isInsideMap(x_, y_-1) && mars.getObject(x_, y_-1) == ' ') {
+        freeSpaces.push_back(std::make_pair(x_, y_-1));
+    }
+    if (mars.isInsideMap(x_+1, y_) && mars.getObject(x_+1, y_) == ' ') {
+        freeSpaces.push_back(std::make_pair(x_+1, y_));
+    }
+    if (mars.isInsideMap(x_, y_+1) && mars.getObject(x_, y_+1) == ' ') {
+        freeSpaces.push_back(std::make_pair(x_, y_+1));
+    }
+    if (mars.isInsideMap(x_, y_-1) && mars.getObject(x_, y_-1) == ' ') {
+        freeSpaces.push_back(std::make_pair(x_, y_-1));
+    }
+    if (!freeSpaces.empty()) {
+        int randIndex = rand() % freeSpaces.size();
+        x_ = freeSpaces[randIndex].first;
+        y_ = freeSpaces[randIndex].second;
+    }
+    mars.setObject(x_, y_, '1'); // set new position
+}
+
+void moveZombie()
+{
+ 
+}
+
 
 
 int main()
-{
+{ 
+   int rows = 5, columns = 9, Zcount = 1;
+    char input;
     
 
-    int rows = 5, columns = 9, Zcount = 1;
-    char input;
-    int X, Y;
-
     Mars obj;
-
+    
     input = defaultsettings(rows, columns, Zcount);
     
     switch (input)
     {
         case 'N':
         changesettings(rows, columns, Zcount);
-        X = columns;
-        Y = rows;
-        obj.display(X, Y);
+        // intro();
+        obj.display();
+        void land(Mars &mars);
+        moveZombie();
         system("pause");
         break;
 
         case 'Y':
-        X = columns;
-        Y = rows;
-        obj.display(X, Y);
+        // intro();
+        void land(Mars &mars);
+        obj.display();
+        moveZombie();
         system("pause");
         break;
 
