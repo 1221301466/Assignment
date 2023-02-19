@@ -8,16 +8,6 @@
 // Phones: +601137704976 | +601131830435 | +966567626353 
 // *********************************************************
 
-// ******************* 
-// Course: TCP1101 PROGRAMMING FUNDAMENTALS 
-// Year: Trimester 1, 2022/23 (T2215) 
-// Lab: TT9L 
-// Names: JOSEPH_MASASI | IBRAHIM_ABDULKAREEM | MOHAM_SALEH 
-// IDs: 1221301466 | 1211300223 | 1221301877 
-// Emails: 1221301466@STUDENT.MMU.EDU.MY| 1211300223@STUDENT.MMU.EDU.MY | 1221301877@STUDENT.MMU.EDU.MY 
-// Phones: +601137704976 | +601131830435 | +966567626353 
-// *******************
-
 #include "MainHeader.h"
 
 using namespace std;
