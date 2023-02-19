@@ -1,54 +1,102 @@
-#include "helper.h"
-#include <cstdlib>
-#include <iostream>
+// ******************* 
+// Course: TCP1101 PROGRAMMING FUNDAMENTALS 
+// Year: Trimester 1, 2022/23 (T2215) 
+// Lab: TT9L 
+// Names: JOSEPH_MASASI | IBRAHIM_ABDULKAREEM | MOHAM_SALEH 
+// IDs: 1221301466 | 1211300223 | 1221301877 
+// Emails: 1221301466@STUDENT.MMU.EDU.MY| 1211300223@STUDENT.MMU.EDU.MY | 1221301877@STUDENT.MMU.EDU.MY 
+// Phones: +601137704976 | +601131830435 | +966567626353 
+// *******************
 
-namespace pf
+#include "MainHeader.h"
+
+using namespace std;
+
+// Command of the game
+void play()
 {
-    const int kRows = 3;
-    const int kColumns = 5;
-    char kBoard[kRows][kColumns];
-
-    int ClearScreen()
+    movement move;
+    int x, y;
+    int CheckLStat = GetLoad();
+    if (CheckLStat == 1)
     {
-        #if defined(_WIN32)
-            return std::system("cls");
-        #elif defined(__linux__) || defined(__APPLE__)
-            return std::system("clear");
-        #endif
+        x = GetAlienX();
+        y = GetAlienY();
     }
 
-    int Pause()
+    else
     {
-        #if defined(_WIN32)
-            return std::system("pause");
-        #elif defined(__linux__) || defined(__APPLE__)
-            return std::system(R"(read -p "Press any key to continue . . . " dummy)");
-        #endif
+        x = getDimX() / 2;
+        y = getDimY() / 2;
     }
 
-    void CreateGameBoard()
+    move.setalienX_(x);
+    move.setalienY_(y);
+    while(1)
     {
-        for (int row = 0; row < kRows; ++row)
-        for (int col = 0; col < kColumns; ++col)
+
+        string dir;
+        cout << " Command " ;
+        cin >> dir ;
+
+        if (dir == "up")
         {
-            int random_number = std::rand() % 2;
-            if (random_number)
-                kBoard[row][col] = '*';
-            else
-                kBoard[row][col] = 'r';
+            move.move_up();
+            move.zommove();
         }
-    }
 
-    void ShowGameBoard()
-    {
-        for (int row = 0; row < kRows; ++row)
+        if (dir == "down")
         {
-            for (int col = 0; col < kColumns; ++col)
-            {
-                std::cout << kBoard[row][col];
-            }
-            std::cout << std::endl;
+            move.move_down();
+            move.zommove();
         }
-            
+
+        if (dir == "left")
+        {
+            move.move_left();
+            move.zommove();
+        }
+
+        if (dir == "right")
+        {
+            move.move_right();
+            move.zommove();
+        }
+
+        if (dir == "arrow")
+        {
+            cout << "Invalid input!";
+            int arrowY, arrowX;
+            string ARdir;
+            cin >> arrowX >> arrowY >> ARdir;
+            move.move_arrow( arrowX,  arrowY,  ARdir);
+        }
+
+        if (dir == "help")
+        {
+            help();
+            Pause();
+            display(); 
+            int no = getZomB(); 
+            move.alienturndisplay(); 
+            zomdisplay(no);
+        }
+
+        if (dir == "save")
+        {
+            fileExist();
+        }
+
+        if (dir == "load")
+        {
+            loadmap();
+            Board();
+        }
+
+        if (dir == "quit")
+        {
+            exit(0);
+        }
+
     }
 }
